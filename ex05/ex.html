@@ -1,0 +1,111 @@
+// 3
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Board</title>
+</head>
+<body>
+    <textarea id="messageInput" placeholder="Write your message here..."></textarea>
+    <button id="addMessageBtn">Add a new message!</button>
+    <div id="messageContainer"></div>
+
+    <script>
+        document.getElementById('addMessageBtn').addEventListener('click', function() {
+            var messageInput = document.getElementById('messageInput').value;
+            if (messageInput.trim() !== '') {
+                var messageParagraph = document.createElement('p');
+                messageParagraph.textContent = messageInput;
+                document.getElementById('messageContainer').appendChild(messageParagraph);
+                document.getElementById('messageInput').value = '';
+            }
+        });
+    </script>
+</body>
+</html>
+
+// 4a and b
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Board</title>
+</head>
+<body>
+    <textarea id="messageInput" placeholder="Write your message here..."></textarea>
+    <button id="addMessageBtn" disabled>Add a new message!</button>
+    <button id="clearMessagesBtn">Clear Messages</button>
+    <div id="messageContainer"></div>
+
+    <script>
+        function toggleAddButton() {
+            var messageInput = document.getElementById('messageInput').value.trim();
+            var addButton = document.getElementById('addMessageBtn');
+            addButton.disabled = (messageInput === '');
+        }
+
+        document.getElementById('addMessageBtn').addEventListener('click', function() {
+            var messageInput = document.getElementById('messageInput').value;
+            if (messageInput.trim() !== '') {
+                var messageParagraph = document.createElement('p');
+                messageParagraph.textContent = messageInput;
+                document.getElementById('messageContainer').appendChild(messageParagraph);
+                document.getElementById('messageInput').value = '';
+                toggleAddButton();
+            }
+        });
+
+        document.getElementById('clearMessagesBtn').addEventListener('click', function() {
+            var confirmClear = confirm("Are you sure you want to clear all messages?");
+            if (confirmClear) {
+                var messageContainer = document.getElementById('messageContainer');
+                messageContainer.innerHTML = '';
+                toggleAddButton();
+            }
+        });
+
+        document.getElementById('messageInput').addEventListener('input', toggleAddButton);
+    </script>
+</body>
+</html>
+
+// 6 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon Game</title>
+    <style>
+        #container {
+            text-align: center;
+        }
+        #balloon {
+            font-size: 50px
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <span id="balloon">🎈</span>
+    </div>
+
+    <script>
+        const balloon = document.getElementById('balloon');
+
+        function inflateBalloon() {
+            let fontSize = parseInt(window.getComputedStyle(balloon).fontSize);
+            fontSize *= 1.1
+            balloon.style.fontSize = fontSize + 'px';
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'ArrowUp') {
+                inflateBalloon();
+            } else if (event.key === 'ArrowDown') {
+                deflateBalloon();
+            }
+        }
+
+        document.addEventListener('keydown', handleKeyPress);
+    </script>
+</body>
+</html>
